@@ -1,0 +1,8 @@
+com\assignment\parkinglot\controller\ParkingLotController.class
+com\assignment\parkinglot\model\BikeParkingSlot.class
+com\assignment\parkinglot\util\SlotExpiryObserver$1.class
+com\assignment\parkinglot\util\SlotExpiryObserver.class
+com\assignment\parkinglot\model\ParkingSlot.class
+com\assignment\parkinglot\service\ParkingLotService.class
+com\assignment\parkinglot\config\AppConfig.class
+com\assignment\parkinglot\ParkingLotApplication.class
