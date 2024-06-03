@@ -1,6 +1,5 @@
 package com.assignment.parkinglot.service;
 
-import com.assignment.parkinglot.entity.ParkingLotEntity;
 import com.assignment.parkinglot.entity.ParkingSpaceEntity;
 import com.assignment.parkinglot.model.ParkingSpace;
 import com.assignment.parkinglot.repository.ParkingSpaceRepository;

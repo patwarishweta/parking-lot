@@ -1,13 +1,10 @@
 package com.assignment.parkinglot.entity;
 
-import com.assignment.parkinglot.model.ParkingSpaceType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
