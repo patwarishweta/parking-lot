@@ -1,9 +1,9 @@
 package com.assignment.parkinglot.model;
 
-public class CarParkingSlot extends ParkingSlot {
+public class CarParkingSlot extends ParkingSpace {
 
-    public CarParkingSlot(String id) {
-        super(id);
+    public CarParkingSlot() {
+        super();
     }
 
     @Override

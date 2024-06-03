@@ -1,46 +1,33 @@
 package com.assignment.parkinglot.controller;
 
-import com.assignment.parkinglot.model.ParkingSlot;
+import com.assignment.parkinglot.entity.ParkingLotEntity;
 import com.assignment.parkinglot.service.ParkingLotService;
-import io.github.bucket4j.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/api/parking")
+@RequestMapping("/api/parking-lot")
 public class ParkingLotController {
-
     @Autowired
-    private Bucket bucket;
-    @Autowired
-    ParkingLotService parkingLotService;
+    private ParkingLotService parkingLotService;
 
-    @GetMapping("/available-slots")
-    public Map<String, ParkingSlot> getAvailableSlots() {
-        return parkingLotService.getAvailableSlots();
+    @PostMapping("create")
+    public ResponseEntity<ParkingLotEntity> createParkingLot(
+            @RequestParam String location,
+            @RequestParam List<Long> parkingSpaceIds) {
+        return ResponseEntity.ok(parkingLotService.createParkingLot(location, parkingSpaceIds));
     }
 
-    @PostMapping("/book-slots")
-    public CompletableFuture<String> bookSlots(@RequestBody List<String> ids) {
-        if (bucket.tryConsumeAndReturnRemaining(1).isConsumed()) {
-            return parkingLotService.bookSlotsAsync(ids)
-                    .thenApply(successIds -> successIds.isEmpty() ? "Slot booking failed" : "Slots booked successfully: " + String.join(", ", successIds));
+    @GetMapping("/get")
+    public ResponseEntity<List<ParkingLotEntity>> getParkingLot(@RequestParam(required = false) Long id) {
+        if(id != null) {
+            ParkingLotEntity parkingLot = parkingLotService.getParkingLot(id);
+            return ResponseEntity.ok(List.of(parkingLot));
         } else {
-            return CompletableFuture.completedFuture("Too many requests. Please try again later.");
+            return ResponseEntity.ok(parkingLotService.getAllParkingLots());
         }
-    }
-
-    @GetMapping("/all-slots")
-    public Map<String, ParkingSlot> getAllSlots() {
-        return parkingLotService.getAllSlots();
     }
 }
